@@ -38,8 +38,21 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item" style="list-style:none">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguages" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{__('titles.languages')}}
+                            </a>
+                            <div class="dropdown-menu nav-item" aria-labelledby="navbarDropdownLanguages">
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <a class="dropdown-item"  rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{ $properties['native'] }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -67,6 +80,7 @@
                                 </div>
                             </li>
                         @endguest
+
                     </ul>
                 </div>
             </div>

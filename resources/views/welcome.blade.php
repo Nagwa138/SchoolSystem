@@ -65,8 +65,15 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+
             @if (Route::has('login'))
                 <div class="top-right links">
+
+                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <a class="dropdown-item"  rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    {{ $properties['native'] }}
+                                </a>
+                            @endforeach
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
@@ -81,7 +88,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    {{__('messages.failed')}}
                 </div>
 
                 <div class="links">
