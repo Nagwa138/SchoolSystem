@@ -26,4 +26,6 @@ Route::group(
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::resource('/parents' , 'Backend\ParentController');
+
 });
