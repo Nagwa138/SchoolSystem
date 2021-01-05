@@ -20,5 +20,14 @@ return [
     'levels' => 'الصفوف',
     'parents' => 'أولياء الامور',
     'users' => 'مستخدمين',
+    'primary_stage' => 'المرحله الإبتدائيه',
+    'middle_stage' => 'المرحله الإعداديه',
+    'secondary_stage'  => 'المرحله الثانويه',
+    'one_level' => 'الصف الأول',
+    'two_level' =>'الصف الثاني',
+    'three_level' => 'الصف الثالث',
+    'four_level' => 'الصف الرابع',
+    'five_level' => 'الصف الخامس',
+    'six_level' => 'الصف السادس',
 
 ];

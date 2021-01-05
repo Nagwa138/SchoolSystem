@@ -19,7 +19,9 @@ Route::group(
     ], function(){
 
     Route::get('/', function () {
-        return view('welcome');
+        if(Auth::check()){
+            return redirect('home');
+        } else return view('welcome');
     });
 
     Auth::routes();
@@ -27,5 +29,7 @@ Route::group(
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::resource('/parents' , 'Backend\ParentController');
+    Route::resource('/students' , 'Backend\StudentController');
 
+    Route::get('getLevels/{id}' , 'Backend\StudentController@getLevels')->name('getLevels');
 });
