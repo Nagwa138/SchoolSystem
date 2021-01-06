@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Chat;
 use App\Files;
+use App\Friend;
 use App\Http\Controllers\Controller;
 use App\Stage;
 use App\Student;
@@ -151,6 +153,19 @@ class StudentController extends Controller
 
         }
 
+
+
+        $friendship = Friend::where(['user1' => 1 , 'user2' => $user->id  ] )->orWhere(['user2' => 1 , 'user1' => $user->id])->count();
+        if($friendship == 0){
+            Friend::create([
+                'user1' => 1,
+                'user2' => $user->id,
+            ]);
+            Friend::create([
+                'user2' => 1,
+                'user1' => $user->id,
+            ]);
+        }
 
         return redirect('home');
 

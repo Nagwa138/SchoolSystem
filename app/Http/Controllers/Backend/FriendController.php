@@ -31,6 +31,11 @@ class FriendController extends Controller
      */
     public function create()
     {
+        $admins = User::where('job_id' , 0 )->where('activated' , 1)->whereNotIn('id' , [Auth::user()->id])->paginate();
+        $parents = User::where('job_id' , 1 )->where('activated' , 1)->whereNotIn('id' , [Auth::user()->id])->paginate();
+        $students = User::where('job_id' , 2 )->where('activated' , 1)->whereNotIn('id' , [Auth::user()->id])->paginate();
+        $employees = '';
+        return view('dashboard.user.index' , compact('admins' , 'parents' , 'students' , 'employees'));
     }
 
     /**

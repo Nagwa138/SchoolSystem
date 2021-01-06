@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Chat;
+use App\Friend;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use App\Files;
 use App\Stage;
 use App\Student;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class StudentJoinRequetsController extends Controller
 {
@@ -58,7 +63,29 @@ class StudentJoinRequetsController extends Controller
 
     public function acceptStudent($id){
 
-        User::where('id' , $id)->update(['activated'=>1]);
+        $user = User::findOrFail($id);
+        $password = substr($user->email, 0,strpos($user->email, '@')) . Str::random(5);
+        User::where('id' , $id)->update(['activated'=>1 , 'password' =>Hash::make($password) ]);
+
+        $msg = new Chat();
+        $msg->sender = Auth::user()->id;
+        $msg->receiver = $id;
+        $msg->msg =  'Welcome Student your password is : (  ' . $password . '  )  And email is : ( ' . $user->email . ' )';
+        $msg->save();
+        $friendship = Friend::where(['user1' =>  Auth::user()->id , 'user2' => $id  ] )->orWhere(['user2' =>  Auth::user()->id, 'user1' => $id])->count();
+        if($friendship == 0){
+            Friend::create([
+                'user1' =>  Auth::user()->id,
+                'user2' => $id,
+            ]);
+            Friend::create([
+                'user2' =>  Auth::user()->id,
+                'user1' => $id,
+            ]);
+        } else {
+            Friend::where(['user1' =>  Auth::user()->id , 'user2' => $id ] )->orWhere(['user2' =>  Auth::user()->id , 'user1' =>$id])->update(['updated_at' => $msg->created_at ]);
+        }
+
         return back()->with('status' , 'Student Accepted Successfully !!');
 
     }

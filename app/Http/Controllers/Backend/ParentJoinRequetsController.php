@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Files;
+use App\Friend;
 use App\Http\Controllers\Controller;
 use App\Parents;
 use App\User;
@@ -43,6 +44,18 @@ class ParentJoinRequetsController extends Controller
 
     public function acceptParent($id){
 
+        $user = User::findOrFail($id);
+        $friendship = Friend::where(['user1' => 1 , 'user2' => $user->id  ] )->orWhere(['user2' => 1 , 'user1' => $user->id])->count();
+        if($friendship == 0){
+            Friend::create([
+                'user1' => 1,
+                'user2' => $user->id,
+            ]);
+            Friend::create([
+                'user2' => 1,
+                'user1' => $user->id,
+            ]);
+        }
         User::where('id' , $id)->update(['activated'=>1]);
         return back()->with('status' , 'Parent Accepted Successfully !!');
 

@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span style="font-size:20px;">{{Auth::user()->name}} @if(Auth::user()->job_id == 0)   ( admin ) @endif</span>
-                        <a href="">
+                        <a href="{{route('friends.create')}}">
                             <button type="button" class="btn btn-xs btn-primary float-right">
                                 New Message
                             </button>
