@@ -50,5 +50,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Job' , 'job_id', 'id');
     }
 
+    public function friends(){
+        return $this->hasMany('App\Friend' , 'user2' , 'id');
+    }
+
 
 }

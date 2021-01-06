@@ -32,6 +32,8 @@ Route::group(
     Route::resource('/students' , 'Backend\StudentController');
     Route::resource('/stages' , 'Backend\StageController');
     Route::resource('/levels' , 'Backend\LevelController');
+    Route::resource('/friends' , 'Backend\FriendController');
+    Route::resource('/chats' , 'Backend\ChatController');
     Route::resource('/parentRequests' , 'Backend\ParentJoinRequetsController');
     Route::resource('/studentRequests' , 'Backend\StudentJoinRequetsController');
 

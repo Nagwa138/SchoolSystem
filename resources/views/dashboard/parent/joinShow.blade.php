@@ -88,7 +88,7 @@
                                 </button>
                             </a>
                          @endif
-                        <a href="{{url('sendNoteForParent')}}">
+                        <a href="{{route('chats.edit' , $user->id)}}">
                             <button class="btn btn-xs btn-dark">
                                 Send Note to Parent
                             </button>

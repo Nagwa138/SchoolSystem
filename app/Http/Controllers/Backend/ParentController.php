@@ -161,7 +161,7 @@ class ParentController extends Controller
             ->addColumn('action', function ($parent) {
                 return '<a href="'. route('parents.show' , $parent->id) .'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> view</a>'
                         .'<a href="'. url('parents/destroy' , $parent->id) .'" class="btn btn-xs btn-dark" style="margin-left: 20px"><i class="glyphicon glyphicon-edit"></i> Disable</a>'
-                        . '<a href="" class="btn btn-xs btn-success" style="margin-left: 20px"><i class="glyphicon glyphicon-edit"></i> Send Message</a>';
+                        . '<a href="'. route('chats.edit' , $parent->id) .'" class="btn btn-xs btn-success" style="margin-left: 20px"><i class="glyphicon glyphicon-edit"></i> Send Message</a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
             ->editColumn('name', 'Name : {{$name}}')
