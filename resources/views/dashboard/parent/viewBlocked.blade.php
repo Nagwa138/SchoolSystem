@@ -5,25 +5,21 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">Parents
+                    <div class="card-header">Parents' Blocked Accounts
                         <br>
-
-                        <a href="{{url('parent/getBlocked')}}" >
-                            <button type="button" style="margin-left:10px" class="btn btn-xs btn-dark float-right">
-                                Blocked Parents
-                            </button>
-                        </a>
-                        <a href="{{route('parentRequests.index')}}">
-                            <button type="button" class="btn btn-xs btn-primary float-right">
-                                Join Requests
-                            </button>
-                        </a>
                     </div>
 
                     <div class="card-body">
                         <table id="parents_table" class="table table-hover table-striped details-control">
 
                         </table>
+                    </div>
+                    <div class="card-footer">
+                        <a href="">
+                            <button type="button" class="btn btn-xs btn-primary">
+                                Back
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -38,7 +34,7 @@
             $('#parents_table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{url('getAddEditRemoveColumnDataParent')}}',
+                ajax: '{{url('viewBlocked')}}',
                 columns: [
                     {
                         "className":      'details-control',

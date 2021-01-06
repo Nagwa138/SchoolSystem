@@ -89,7 +89,7 @@
                             </button>
                         </a>
 
-                             <a href="">
+                             <a href="{{route('studentRequests.edit' , $user->id)}}">
                                  <button class="btn btn-xs btn-light btn-outline-success">
                                      Edit Student Data
                                  </button>

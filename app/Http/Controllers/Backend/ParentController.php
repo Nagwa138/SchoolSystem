@@ -218,7 +218,27 @@ class ParentController extends Controller
         return back()->with('status' , 'Parent Enabled Successfully !!');
     }
 
-    public function putFiles(Request $request){
+    public function getBlocked(){
+        return view('dashboard.parent.viewBlocked');
+    }
 
+
+    public function viewBlocked(){
+
+        $parents = DB::table('users')
+            ->where('job_id' , 1)
+            ->where('activated' , -1)
+            ->select(['id', 'name', 'email','created_at', 'updated_at']);
+
+        return Datatables::of($parents)
+            ->addColumn('action', function ($parent) {
+                return '<a href="'. route('parents.show' , $parent->id) .'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> view</a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->editColumn('name', 'Name : {{$name}}')
+            ->editColumn('email', 'E-mail : {{$email}}')
+            ->removeColumn('updated_at')
+            ->removeColumn('created_at')
+            ->make(true);
     }
 }

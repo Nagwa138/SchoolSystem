@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use App\Files;
+use App\Stage;
+use App\Student;
 
 class StudentJoinRequetsController extends Controller
 {
@@ -69,7 +71,11 @@ class StudentJoinRequetsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $stages = Stage::all();
+        $user = User::findOrFail($id);
+        $files = Files::where('user_id' , $id)->paginate();
+
+        return view('dashboard.student.joinEdit' , compact('user' , 'stages' , 'files'));
     }
 
     /**
@@ -81,7 +87,10 @@ class StudentJoinRequetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        User::where('id', $id)->update(['email' => $request->email]);
+        Student::where('user_id' , $id)->update($request->except(['_token' , '_method' , 'stage']));
+
+        return redirect()->route('studentRequests.show' , $id)->with('status' , 'Student Data Updated !!');
     }
 
     /**

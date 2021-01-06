@@ -89,16 +89,7 @@
 
                     </div>
                     <div id="options" class="card-footer">
-                        <a href="{{route('parents.index')}}">
-                            <button class="btn btn-xs btn-primary">
-                                Back
-                            </button>
-                        </a>
-                        <a href="">
-                            <button class="btn btn-xs btn-dark">
-                                Send Message
-                            </button>
-                        </a>
+
 
                         @if($user->activated == 1)
                         <a href="{{ url('parents/destroy' , $user->id ) }}" class="float-right">
@@ -106,8 +97,23 @@
                                 Disable
                             </button>
                         </a>
+                            <a href="{{route('parents.index')}}">
+                                <button class="btn btn-xs btn-primary">
+                                    Back
+                                </button>
+                            </a>
+                            <a href="">
+                                <button class="btn btn-xs btn-dark">
+                                    Send Message
+                                </button>
+                            </a>
                         @endif
                         @if($user->activated == -1)
+                                <a href="{{url('parent/getBlocked')}}">
+                                    <button class="btn btn-xs btn-primary">
+                                        Back
+                                    </button>
+                                </a>
                             <a href="{{ url('parents/enable' , $user->id) }}" class="float-right">
                                 <button class="btn btn-xs btn-success">
                                     Enable
