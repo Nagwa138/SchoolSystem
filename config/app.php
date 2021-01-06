@@ -177,6 +177,8 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
         Yajra\DataTables\FractalServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
+
 
     ],
 

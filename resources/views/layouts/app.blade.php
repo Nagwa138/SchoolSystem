@@ -10,14 +10,29 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.bootstrap4.min.js"></script>
+
+    <script src="{{asset('/vendor/datatables/buttons.server-side.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+
 </head>
 <body>
     <div id="app">
@@ -56,24 +71,27 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
+                        {{---------
+                        @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+                        -----}}
+
                         @else
                             @if (Auth::user()->hasRole('superAdmin'))
                             <li class="nav-item">
-                                <a class="nav-link">Parents</a>
+                                <a class="nav-link" href="{{route('parents.index')}}">Parents</a>
                             </li>
                                 <li class="nav-item">
-                                    <a class="nav-link">Students</a>
+                                    <a class="nav-link" href="{{route('students.index')}}">Students</a>
                             </li>
                                 <li class="nav-item">
-                                    <a class="nav-link">Stages</a>
+                                    <a class="nav-link" href="{{route('stages.index')}}">Stages</a>
                             </li>
                                 <li class="nav-item">
-                                    <a class="nav-link">Levels</a>
+                                    <a class="nav-link" href="{{route('levels.index')}}">Levels</a>
                             </li>
                             @endif
                             <li class="nav-item dropdown">
@@ -104,46 +122,7 @@
             @yield('content')
         </main>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function()
-    {
-        $('#stage').on('change' , function () {
-            let value = $(this).val();
-            $.ajax({
-                method  : "GET",
-                url : "../../getLevels/" + value,
-                success:function(data) {
-                    console.log(data.data);
-                    var levels = ' ';
-                    for(var i = 0; i< data.data.length; i++ ) {
-                        levels += '<option value="' + data.data[i]['id'] + '">';
-                        if(data.data[i]['name'] == 'titles.one_level'){
-                            levels += 'الصف الاول   -  Level One';
-                        }
-                        if(data.data[i]['name'] == 'titles.two_level'){
-                            levels += 'الصف الثاني   -  Level Two';
-                        }
-                        if(data.data[i]['name'] == 'titles.three_level'){
-                            levels += 'الصف الثالث   -   Level Three';
-                        }
-                        if(data.data[i]['name'] == 'titles.four_level'){
-                            levels += 'الصف الرابع   -  Level Four';
-                        }
-                        if(data.data[i]['name'] == 'titles.five_level'){
-                            levels += 'الصف الخامس   -  Level Five';
-                        }
-                        if(data.data[i]['name'] == 'titles.six_level'){
-                            levels += 'الصف السادس   -   Level Six ';
-                        }
-                        levels += '</option>';
-                    }
-                    $('#level').html(levels);
-                }
-            })
-        })
 
-    })
-</script>
+    @yield('script')
 </body>
 </html>

@@ -12,4 +12,8 @@ class Level extends Model
         return $this->belongsTo('App\Stage' , 'stage_id' , 'id');
     }
 
+    public function student(){
+        return $this->hasMany('App\Student' , 'level_id' , 'id');
+    }
+
 }

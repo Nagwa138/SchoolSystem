@@ -8,9 +8,12 @@ use App\Parents;
 use App\User;
 use Illuminate\Http\Request;
 use Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use Auth;
+use Yajra\DataTables\Facades\DataTables;
+
 class ParentController extends Controller
 {
     /**
@@ -147,15 +150,31 @@ class ParentController extends Controller
         return redirect('home')->with('status',trans('messages.congrats'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function getAddEditRemoveColumnData()
+    {
+        $parents = DB::table('users')
+            ->where('job_id' , 1)
+            ->where('activated' , 1)
+            ->select(['id', 'name', 'email','created_at', 'updated_at']);
+
+        return Datatables::of($parents)
+            ->addColumn('action', function ($parent) {
+                return '<a href="'. route('parents.show' , $parent->id) .'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> view</a>'
+                        .'<a href="'. url('parents/destroy' , $parent->id) .'" class="btn btn-xs btn-dark" style="margin-left: 20px"><i class="glyphicon glyphicon-edit"></i> Disable</a>'
+                        . '<a href="" class="btn btn-xs btn-success" style="margin-left: 20px"><i class="glyphicon glyphicon-edit"></i> Send Message</a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->editColumn('name', 'Name : {{$name}}')
+            ->editColumn('email', 'E-mail : {{$email}}')
+            ->removeColumn('updated_at')
+            ->removeColumn('created_at')
+            ->make(true);
+    }
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $files = Files::where('user_id' , $id)->paginate();
+        return view('dashboard.parent.show' , compact('user' , 'files'));
     }
 
     /**
@@ -189,7 +208,14 @@ class ParentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id' , $id)->update(['activated'=>-1]);
+        return back()->with('status' , 'Parent Disabled Successfully !!');
+    }
+
+    public function enable($id)
+    {
+        User::where('id' , $id)->update(['activated'=>1]);
+        return back()->with('status' , 'Parent Enabled Successfully !!');
     }
 
     public function putFiles(Request $request){

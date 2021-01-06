@@ -13,15 +13,15 @@ class StagesTableSeeder extends Seeder
     {
 
         $primary = App\Stage::create([
-            'name' => 'titles.primary_stage',
+            'name' => 'المرحله الإبتدائه',
         ]);
 
         $middle = App\Stage::create([
-        'name' => 'titles.middle_stage',
+        'name' => 'المرحله الاعداديه',
         ]);
 
         $secondary = App\Stage::create([
-        'name' => 'titles.secondary_stage',
+        'name' => 'المرحله الثانويه',
         ]);
 
     }

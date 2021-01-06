@@ -202,3 +202,31 @@
         </div>
     </div>
 @endsection
+
+
+@section('script')
+
+    <script>
+        $(document).ready(function()
+        {
+            $('#stage').on('change' , function () {
+                let value = $(this).val();
+                $.ajax({
+                    method  : "GET",
+                    url : "../../getLevels/" + value,
+                    success:function(data) {
+                        console.log(data.data);
+                        var levels = ' ';
+                        for(var i = 0; i< data.data.length; i++ ) {
+                            levels += '<option value="' + data.data[i]['id'] + '">';
+                            levels += data.data[i]['name'];
+                            levels += '</option>';
+                        }
+                        $('#level').html(levels);
+                    }
+                })
+            })
+
+        })
+    </script>
+@endsection

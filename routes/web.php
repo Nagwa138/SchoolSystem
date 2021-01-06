@@ -30,6 +30,31 @@ Route::group(
 
     Route::resource('/parents' , 'Backend\ParentController');
     Route::resource('/students' , 'Backend\StudentController');
+    Route::resource('/stages' , 'Backend\StageController');
+    Route::resource('/levels' , 'Backend\LevelController');
+    Route::resource('/parentRequests' , 'Backend\ParentJoinRequetsController');
+    Route::resource('/studentRequests' , 'Backend\StudentJoinRequetsController');
 
     Route::get('getLevels/{id}' , 'Backend\StudentController@getLevels')->name('getLevels');
+    Route::get('stages/destroy/{id}' , 'Backend\StageController@destroy');
+    Route::get('levels/destroy/{id}' , 'Backend\LevelController@destroy');
+    Route::get('parents/destroy/{id}' , 'Backend\ParentController@destroy');
+    Route::get('parents/enable/{id}' , 'Backend\ParentController@enable');
+    Route::get('students/destroy/{id}' , 'Backend\StudentController@destroy');
+    Route::get('students/enable/{id}' , 'Backend\StudentController@enable');
+    Route::get('getAddEditRemoveColumnDataStage' , 'Backend\StageController@getAddEditRemoveColumnData');
+    Route::get('getAddEditRemoveColumnDataLevel' , 'Backend\LevelController@getAddEditRemoveColumnData');
+    Route::get('getAddEditRemoveColumnDataParent' , 'Backend\ParentController@getAddEditRemoveColumnData');
+    Route::get('getAddEditRemoveColumnDataStudent' , 'Backend\StudentController@getAddEditRemoveColumnData');
+    Route::get('getAddEditRemoveColumnParentRequest' , 'Backend\ParentJoinRequetsController@getAddEditRemoveColumnData');
+
+
+    Route::get('acceptParent/{id}' , 'Backend\ParentJoinRequetsController@acceptParent');
+    Route::get('acceptStudent/{id}' , 'Backend\StudentJoinRequetsController@acceptStudent');
+    Route::get('sendNoteForParent' , 'Backend\ParentJoinRequetsController@sendNoteForParent');
+
+
+
+
+
 });

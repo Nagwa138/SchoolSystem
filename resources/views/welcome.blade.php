@@ -79,9 +79,12 @@
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
+                                {{----
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
                         @endif
+                                --}}
+
                         <a href="{{route('parents.create')}}">Register Parent</a>
                     @endauth
                 </div>
@@ -89,7 +92,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    {{__('messages.failed')}}
+
                 </div>
 
                 <div class="links">

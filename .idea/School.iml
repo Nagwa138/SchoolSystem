@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/asm89/stack-cors" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-snappy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />
@@ -27,6 +28,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kkszymanowski/traitor" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-snappy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/framework" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/tinker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/ui" />
@@ -128,5 +130,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="dataTables.buttons" level="application" />
+    <orderEntry type="library" name="buttons.bootstrap4" level="application" />
+    <orderEntry type="library" name="dataTables.bootstrap4" level="application" />
+    <orderEntry type="library" name="jquery.dataTables" level="application" />
+    <orderEntry type="library" name="jquery-3.2.1" level="application" />
+    <orderEntry type="library" name="datatables" level="application" />
+    <orderEntry type="library" name="jquery-1.12.4" level="application" />
   </component>
 </module>

@@ -9,9 +9,11 @@ use App\Student;
 use Illuminate\Http\Request;
 use Auth;
 use App\Level;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\User;
+use Yajra\DataTables\Facades\DataTables;
 
 class StudentController extends Controller
 {
@@ -22,8 +24,29 @@ class StudentController extends Controller
      */
     public function index()
     {
+        return view('dashboard.student.index');
     }
 
+    public function getAddEditRemoveColumnData()
+    {
+        $students = DB::table('users')
+            ->where('job_id' , 2)
+            ->where('activated' , 1)
+            ->select(['id', 'name', 'email','created_at', 'updated_at']);
+
+        return Datatables::of($students)
+            ->addColumn('action', function ($student) {
+                return '<a href="'. route('students.show' , $student->id) .'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> view</a>'
+                        .'<a href="'. url('students/destroy' , $student->id) .'" class="btn btn-xs btn-dark" style="margin-left: 20px"><i class="glyphicon glyphicon-edit"></i> Disable</a>'
+                        .'<a href="" class="btn btn-xs btn-success" style="margin-left: 20px"><i class="glyphicon glyphicon-edit"></i> Send Message</a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->editColumn('name', 'Name : {{$name}}')
+            ->editColumn('email', 'E-mail : {{$email}}')
+            ->removeColumn('updated_at')
+            ->removeColumn('created_at')
+            ->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -141,7 +164,9 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $files = Files::where('user_id' , $id)->paginate();
+        return view('dashboard.student.show' , compact('user' , 'files'));
     }
 
     /**
@@ -175,7 +200,14 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id' , $id)->update(['activated'=>-1]);
+        return back()->with('status' , 'Student Disabled Successfully !!');
+    }
+
+    public function enable($id)
+    {
+        User::where('id' , $id)->update(['activated'=>1]);
+        return back()->with('status' , 'Student Enabled Successfully !!');
     }
 
    public function getLevels($id){

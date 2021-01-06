@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('middle_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->datetime('date_of_birthday');
+            $table->date('date_of_birthday');
             $table->string('religion');
             $table->unsignedBigInteger('parent_id');
             $table->unsignedBigInteger('user_id');
