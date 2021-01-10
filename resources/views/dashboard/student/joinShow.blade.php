@@ -83,9 +83,14 @@
                                 </button>
                             </a>
                           @endif
+                             <a href="{{url('/admin/resetStudent')}}">
+                                 <button class="btn btn-xs btn-outline-primary">
+                                     Ask to reset some Data
+                                 </button>
+                             </a>
                              <a href="{{route('chats.edit' , $user->student->parent->user->id)}}">
                                 <button class="btn btn-xs btn-dark">
-                                    Send Note to Parent
+                                    Send Message to Parent
                                 </button>
                             </a>
 

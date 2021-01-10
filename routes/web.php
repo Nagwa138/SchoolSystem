@@ -34,6 +34,12 @@ Route::group(
     Route::resource('/levels' , 'Backend\LevelController');
     Route::resource('/friends' , 'Backend\FriendController');
     Route::resource('/chats' , 'Backend\ChatController');
+    Route::resource('/admins' , 'Backend\AdminController');
+    Route::get('/chat/getMsgs' , 'Backend\ChatController@getMsgs');
+    Route::get('/admin/resetParent' , 'Backend\AdminController@resetParent');
+    Route::get('/admin/resetStudent' , 'Backend\AdminController@resetStudent');
+
+
     Route::resource('/parentRequests' , 'Backend\ParentJoinRequetsController');
     Route::resource('/studentRequests' , 'Backend\StudentJoinRequetsController');
 

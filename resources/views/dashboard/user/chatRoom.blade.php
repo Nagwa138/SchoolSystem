@@ -10,7 +10,7 @@
             <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">
-                        <a href="">
+                        <a href="{{route('friends.index')}}">
                             <button type="button" class="btn btn-xs btn-primary">
                                 Back
                             </button>
@@ -26,7 +26,7 @@
                     <div class="card-body row justify-content-center align-items-center">
                         <div class="col-md-10 ">
                             <div class="about-box" style="height:auto;overflow:hidden;">
-                                <div class="flex-column col-md-12" style="overflow-y:scroll;height:58vh;">
+                                <div id="msgsContainer" class="flex-column col-md-12" style="overflow-y:scroll;height:58vh;">
                                     @foreach($msgs as $msg)
                                         @if($msg->receiver == Auth::user()->id)
                                             @if($msg->sender == $friend->id)
@@ -53,11 +53,12 @@
 
                     </div>
                     <div id="options" class="card-footer">
-                        <form method="post" action="{{route('chats.store')}}">
+                        <form id="sendMsg">
                             @csrf
 
-                            <input type="hidden" name="receiver" value="{{$friend->id}}">
-                            <input type="hidden" name="sender" value="{{Auth::user()->id}}">
+                            <input type="hidden" id="receiver" name="receiver" value="{{$friend->id}}">
+                            <input type="hidden" id="sender" name="sender" value="{{Auth::user()->id}}">
+                            <input type="hidden" id="friend" name="friend" value="{{$friend->id}}">
                             <div class="form-group row justify-content-center">
                                 <div class="col-md-9">
                                     <input id="msg" type="text"  class="form-control @error('msg') is-invalid @enderror" name="msg" value="{{ old('msg') }}" placeholder="Type ..." required autocomplete="msg" autofocus>
@@ -85,4 +86,54 @@
     <!----  end container -->
 
 
+@endsection
+
+@section('script')
+<script>
+$(document).ready(function(){
+
+
+    //SEND MESSAGE BY AJAX
+
+    $('#sendMsg').on('submit' , function(e){
+    e.preventDefault();
+
+    $.ajax({
+    type: "POST",
+    url: "{{route('chats.store')}}",
+    data: $('#sendMsg').serialize(),
+    success: function(response){
+    //alert('Message Send !');
+    $('#msg').val('')
+        getMsgs($('#sender').val() , $('#receiver').val() , $('#friend').val());
+    },
+    error: function(error){
+    alert('Data Not send ' + error);
+    }
+    })
+    })
+
+    function getMsgs(sender , receiver , friend){
+        $.ajax({
+            type: "GET",
+            url: "{{url('chat/getMsgs' )}}",
+            data: {sender: sender, receiver: receiver, friend: friend},
+                success: function (response) {
+                    //console.log(response);
+                    $('#msgsContainer').html(response);
+                    updateScroll();
+                },
+                error: function (error) {
+                    alert('Data Not send ' + error);
+                },
+            })
+    }
+
+    function updateScroll(){
+        var element = document.getElementById("msgsContainer");
+        element.scrollTop = element.scrollHeight;
+    }
+    updateScroll();
+})
+</script>
 @endsection

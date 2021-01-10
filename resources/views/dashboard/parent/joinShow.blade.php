@@ -88,9 +88,14 @@
                                 </button>
                             </a>
                          @endif
+                            <a href="{{url('/admin/resetParent')}}">
+                                <button class="btn btn-xs btn-outline-primary">
+                                    Ask to reset some of his Data
+                                </button>
+                            </a>
                         <a href="{{route('chats.edit' , $user->id)}}">
                             <button class="btn btn-xs btn-dark">
-                                Send Note to Parent
+                                Send Message
                             </button>
                         </a>
                         @foreach($students as $student)

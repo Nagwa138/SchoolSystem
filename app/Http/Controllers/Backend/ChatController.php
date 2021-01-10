@@ -108,6 +108,33 @@ class ChatController extends Controller
         return view('dashboard.user.chatRoom' , compact('friend' , 'msgs'));
     }
 
+    public function getMsgs(Request $request){
+
+        $msgs = Chat::where(['sender' => $request->sender , 'receiver' =>  $request->receiver])->orWhere(['sender' => $request->receiver , 'receiver' =>  $request->sender])->paginate();
+
+
+        $show = '';
+
+        foreach ($msgs as $msg){
+            if($msg->receiver == Auth::user()->id){
+                if($msg->sender == $request->friend){
+                    $show .= '<div class="col-md-8 send bg-warning float-left" style="padding:15px;border-radius:10px">'
+                                        . $msg->msg
+                                      . '</div><br><br><br>';
+                }
+            }
+            if($msg->sender == Auth::user()->id) {
+                if ($msg->receiver == $request->friend) {
+                    $show .= '<div class="col-md-8 receive bg-primary text-light float-right" style="padding:15px;border-radius:10px">'
+                        . $msg->msg
+                        . '</div><br><br><br>';
+                }
+            }
+        }
+
+        return $show;
+    }
+
     /**
      * Update the specified resource in storage.
      *

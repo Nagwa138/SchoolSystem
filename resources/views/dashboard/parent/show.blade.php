@@ -102,7 +102,7 @@
                                     Back
                                 </button>
                             </a>
-                            <a href="">
+                            <a href="{{route('chats.edit' , $user->id)}}">
                                 <button class="btn btn-xs btn-dark">
                                     Send Message
                                 </button>
