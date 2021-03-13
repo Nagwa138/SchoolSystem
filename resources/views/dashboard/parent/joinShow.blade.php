@@ -10,6 +10,11 @@
             <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">
+                        <a href="{{route('parentRequests.index')}}">
+                        <button type="button" class="btn btn-xs btn-primary float-right">
+                            Back
+                        </button>
+                        </a>
                         <h3>Join Request from Parent : {{$user->name}} </h3>
                     </div>
                     @if($user->activated == 1)

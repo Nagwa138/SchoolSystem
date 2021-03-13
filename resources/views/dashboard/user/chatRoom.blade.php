@@ -93,6 +93,9 @@
 $(document).ready(function(){
 
 
+    window.setInterval(function(){
+        getMsgs($('#sender').val() , $('#receiver').val() , $('#friend').val());
+    }, 5000);
     //SEND MESSAGE BY AJAX
 
     $('#sendMsg').on('submit' , function(e){
@@ -108,7 +111,7 @@ $(document).ready(function(){
         getMsgs($('#sender').val() , $('#receiver').val() , $('#friend').val());
     },
     error: function(error){
-    alert('Data Not send ' + error);
+    //alert('Data Not send ' + error);
     }
     })
     })

@@ -54,6 +54,14 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
         $number_of_children = Auth::user()->parent->number_of_children;
@@ -76,98 +84,97 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'numeric'],
-            'religion' => ['required', 'string'],
-            'date_of_birthday' => ['required', 'date'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users' , 'unique:students'],
-        ]);
+        if($request) {
+            $request->validate([
+                'first_name' => ['required', 'string', 'max:255'],
+                'middle_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'gender' => ['required', 'numeric'],
+                'religion' => ['required', 'string'],
+                'date_of_birthday' => ['required', 'date'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'unique:students'],
+            ]);
 
-        $password = substr($request['email'], 0,strpos($request['email'], '@')) . Str::random(5);
+            $password = substr($request['email'], 0, strpos($request['email'], '@')) . Str::random(5);
 
-        $user = new User();
-        $user->name = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name ;
-        $user->email = $request->email;
-        $user->job_id = 2 ;
-        $user->password = Hash::make($password);
-        $user->save();
+            $user = new User();
+            $user->name = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
+            $user->email = $request->email;
+            $user->job_id = 2;
+            $user->password = Hash::make($password);
+            $user->save();
 
-        $student = new Student();
-        $student->first_name = $request->first_name;
-        $student->middle_name = $request->middle_name;
-        $student->last_name = $request->last_name;
-        $student->gender = $request->gender;
-        $student->notes = $request->notes;
-        $student->parent_id = Auth::user()->parent->id;
-        $student->level_id = $request->level;
-        $student->date_of_birthday = $request->date_of_birthday;
-        $student->religion = $request->religion;
-        $student->user_id = $user->id;
-        $student->email = $request->email;
-        $student->save();
+            $student = new Student();
+            $student->first_name = $request->first_name;
+            $student->middle_name = $request->middle_name;
+            $student->last_name = $request->last_name;
+            $student->gender = $request->gender;
+            $student->notes = $request->notes;
+            $student->parent_id = Auth::user()->parent->id;
+            $student->level_id = $request->level;
+            $student->date_of_birthday = $request->date_of_birthday;
+            $student->religion = $request->religion;
+            $student->user_id = $user->id;
+            $student->email = $request->email;
+            $student->save();
 
-        if($request->hasFile('student_picture'))
-        {
+            if ($request->hasFile('student_picture')) {
 
-            $path_student_picture = 'uploads/students/' . $user->id .'/student_picture/' ;
-            if (!file_exists($path_student_picture)) {
-                mkdir($path_student_picture , 0777, true);
+                $path_student_picture = 'uploads/students/' . $user->id . '/student_picture/';
+                if (!file_exists($path_student_picture)) {
+                    mkdir($path_student_picture, 0777, true);
+                }
+
+                //Storage::disk('public_uploads')->delete('parents/' . $user->id .'/'. User::);
+                $file_extention_student_picture = $request->file('student_picture')->getClientOriginalExtension();
+
+                $student_picture = time() . "." . $file_extention_student_picture;
+                $request->file('student_picture')->move($path_student_picture, $student_picture);
+
+                $student_picture_insert = new Files();
+                $student_picture_insert->user_id = $user->id;
+                $student_picture_insert->filetype_id = 3;
+                $student_picture_insert->file = $student_picture;
+                $student_picture_insert->save();
+
             }
 
-            //Storage::disk('public_uploads')->delete('parents/' . $user->id .'/'. User::);
-            $file_extention_student_picture = $request->file('student_picture')->getClientOriginalExtension();
+            if ($request->hasFile('birth_certificate')) {
 
-            $student_picture = time() . "." .$file_extention_student_picture;
-            $request->file('student_picture')->move($path_student_picture, $student_picture);
+                $path_birth_certificate = 'uploads/students/' . $user->id . '/birth_certificate/';
+                if (!file_exists($path_birth_certificate)) {
+                    mkdir($path_birth_certificate, 0777, true);
+                }
 
-            $student_picture_insert = new Files();
-            $student_picture_insert->user_id = $user->id;
-            $student_picture_insert->filetype_id = 3;
-            $student_picture_insert->file =$student_picture;
-            $student_picture_insert->save();
+                //Storage::disk('public_uploads')->delete('parents/' . $user->id .'/'. User::);
+                $file_extention_student_birth_certificate = $request->file('birth_certificate')->getClientOriginalExtension();
 
-        }
+                $student_birth_certificate = time() . "." . $file_extention_student_birth_certificate;
+                $request->file('birth_certificate')->move($path_birth_certificate, $student_birth_certificate);
 
-        if($request->hasFile('birth_certificate'))
-        {
+                $student_birth_certificate_insert = new Files();
+                $student_birth_certificate_insert->user_id = $user->id;
+                $student_birth_certificate_insert->filetype_id = 5;
+                $student_birth_certificate_insert->file = $student_birth_certificate;
+                $student_birth_certificate_insert->save();
 
-            $path_birth_certificate = 'uploads/students/' . $user->id .'/birth_certificate/' ;
-            if (!file_exists($path_birth_certificate)) {
-                mkdir($path_birth_certificate , 0777, true);
             }
 
-            //Storage::disk('public_uploads')->delete('parents/' . $user->id .'/'. User::);
-            $file_extention_student_birth_certificate = $request->file('birth_certificate')->getClientOriginalExtension();
 
-            $student_birth_certificate = time() . "." .$file_extention_student_birth_certificate;
-            $request->file('birth_certificate')->move($path_birth_certificate, $student_birth_certificate);
+//            $friendship = Friend::where(['user1' => 1, 'user2' => $user->id])->orWhere(['user2' => 1, 'user1' => $user->id])->count();
+//            if ($friendship == 0) {
+//                Friend::create([
+//                    'user1' => 1,
+//                    'user2' => $user->id,
+//                ]);
+//                Friend::create([
+//                    'user2' => 1,
+//                    'user1' => $user->id,
+//                ]);
+//            }
 
-            $student_birth_certificate_insert = new Files();
-            $student_birth_certificate_insert->user_id = $user->id;
-            $student_birth_certificate_insert->filetype_id = 5;
-            $student_birth_certificate_insert->file =$student_birth_certificate;
-            $student_birth_certificate_insert->save();
-
+            return redirect('home');
         }
-
-
-
-        $friendship = Friend::where(['user1' => 1 , 'user2' => $user->id  ] )->orWhere(['user2' => 1 , 'user1' => $user->id])->count();
-        if($friendship == 0){
-            Friend::create([
-                'user1' => 1,
-                'user2' => $user->id,
-            ]);
-            Friend::create([
-                'user2' => 1,
-                'user1' => $user->id,
-            ]);
-        }
-
-        return redirect('home');
 
     }
 
@@ -179,9 +186,11 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        $files = Files::where('user_id' , $id)->paginate();
-        return view('dashboard.student.show' , compact('user' , 'files'));
+        if($id) {
+            $user = User::findOrFail($id);
+            $files = Files::where('user_id', $id)->paginate();
+            return view('dashboard.student.show', compact('user', 'files'));
+        }
     }
 
     /**
@@ -215,18 +224,25 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        User::where('id' , $id)->update(['activated'=>-1]);
-        return back()->with('status' , 'Student Disabled Successfully !!');
+        if($id) {
+            User::where('id', $id)->update(['activated' => -1]);
+            return back()->with('status', 'Student Disabled Successfully !!');
+        }
     }
 
     public function enable($id)
     {
-        User::where('id' , $id)->update(['activated'=>1]);
-        return back()->with('status' , 'Student Enabled Successfully !!');
+        if($id) {
+            User::where('id', $id)->update(['activated' => 1]);
+            return back()->with('status', 'Student Enabled Successfully !!');
+        }
     }
 
    public function getLevels($id){
-        return Level::where('stage_id' , $id)->paginate();
+        if($id){
+            return Level::where('stage_id' , $id)->paginate();
+
+        }
    }
 
 }

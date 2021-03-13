@@ -10,7 +10,7 @@
             <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Join Request from Student : {{$user->name}} </h3>
+                        <h3>  Join Request from Student : {{$user->name}} </h3>
                     </div>
 
                     @if($user->activated == 1)

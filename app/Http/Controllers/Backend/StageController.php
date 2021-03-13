@@ -51,8 +51,10 @@ class StageController extends Controller
      */
     public function store(Request $request)
     {
-        Stage::create(['name' => $request->name]);
-        return redirect()->route('stages.index')->with('status' , 'Stage Added Successfully');
+        if($request) {
+            Stage::create(['name' => $request->name]);
+            return redirect()->route('stages.index')->with('status', 'Stage Added Successfully');
+        }
     }
 
     /**
@@ -74,8 +76,10 @@ class StageController extends Controller
      */
     public function edit($id)
     {
-        $stage = Stage::findOrFail($id);
-        return view('dashboard.stage.edit' , compact('stage'));
+        if($id) {
+            $stage = Stage::findOrFail($id);
+            return view('dashboard.stage.edit', compact('stage'));
+        }
     }
 
     /**
@@ -87,8 +91,10 @@ class StageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Stage::findOrFail($id)->update(['name' => $request->name]);
-        return redirect()->route('stages.index')->with('status' , 'Updated !!');
+        if($request) {
+            Stage::findOrFail($id)->update(['name' => $request->name]);
+            return redirect()->route('stages.index')->with('status', 'Updated !!');
+        }
     }
 
     /**
@@ -99,11 +105,15 @@ class StageController extends Controller
      */
     public function destroy($id)
     {
-        if(Level::where('stage_id' , $id)->count() > 0){
-            return 'Can not Delete';
-        } else {
-            Stage::findOrFail($id)->delete();
-            return redirect()->back()->with('status', 'Stage Deleted Successfully !');
+        if($id) {
+
+
+            if (Level::where('stage_id', $id)->count() > 0) {
+                return 'Can not Delete';
+            } else {
+                Stage::findOrFail($id)->delete();
+                return redirect()->back()->with('status', 'Stage Deleted Successfully !');
+            }
         }
     }
 }

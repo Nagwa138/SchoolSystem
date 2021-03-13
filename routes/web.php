@@ -55,6 +55,7 @@ Route::group(
     Route::get('getAddEditRemoveColumnDataParent' , 'Backend\ParentController@getAddEditRemoveColumnData');
     Route::get('getAddEditRemoveColumnDataStudent' , 'Backend\StudentController@getAddEditRemoveColumnData');
     Route::get('getAddEditRemoveColumnParentRequest' , 'Backend\ParentJoinRequetsController@getAddEditRemoveColumnData');
+    Route::get('getAddEditRemoveColumnStudentRequest' , 'Backend\StudentJoinRequetsController@getAddEditRemoveColumnData');
     Route::get('viewBlocked' , 'Backend\ParentController@viewBlocked');
 
     Route::get('parent/getBlocked' , 'Backend\ParentController@getBlocked' );

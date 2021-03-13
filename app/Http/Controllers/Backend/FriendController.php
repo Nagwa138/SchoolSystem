@@ -37,6 +37,10 @@ class FriendController extends Controller
         $employees = '';
         return view('dashboard.user.index' , compact('admins' , 'parents' , 'students' , 'employees'));
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Store a newly created resource in storage.

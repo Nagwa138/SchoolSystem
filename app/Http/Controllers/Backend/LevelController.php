@@ -58,8 +58,10 @@ class LevelController extends Controller
      */
     public function store(Request $request)
     {
-        Level::create(['name' => $request->name , 'stage_id' => $request->stage_id]);
-        return redirect()->route('levels.index')->with('status' , 'Level Added Successfully');
+        if($request) {
+            Level::create(['name' => $request->name, 'stage_id' => $request->stage_id]);
+            return redirect()->route('levels.index')->with('status', 'Level Added Successfully');
+        }
     }
 
     /**
@@ -70,8 +72,10 @@ class LevelController extends Controller
      */
     public function show($id)
     {
-        $level = Level::findOrFail($id);
-        return view('dashboard.level.show', compact('level'));
+        if($id) {
+            $level = Level::findOrFail($id);
+            return view('dashboard.level.show', compact('level'));
+        }
     }
 
     /**
@@ -82,9 +86,11 @@ class LevelController extends Controller
      */
     public function edit($id)
     {
-        $level = Level::findOrFail($id);
-        $stages = Stage::all();
-        return view('dashboard.level.edit', compact('level' , 'stages'));
+        if($id) {
+            $level = Level::findOrFail($id);
+            $stages = Stage::all();
+            return view('dashboard.level.edit', compact('level', 'stages'));
+        }
     }
 
     /**
@@ -96,8 +102,10 @@ class LevelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Level::findOrFail($id)->update(['name' => $request->name , 'stage_id' => $request->stage_id]);
-        return redirect()->route('levels.index')->with('status' , 'Updated !!');
+        if($request) {
+            Level::findOrFail($id)->update(['name' => $request->name, 'stage_id' => $request->stage_id]);
+            return redirect()->route('levels.index')->with('status', 'Updated !!');
+        }
     }
 
     /**
@@ -108,7 +116,16 @@ class LevelController extends Controller
      */
     public function destroy($id)
     {
-        Level::findOrFail($id)->delete();
-        return redirect()->back()->with('status', 'Level Deleted Successfully !');
+        if($id) {
+
+
+            Level::findOrFail($id)->delete();
+            return redirect()->back()->with('status', 'Level Deleted Successfully !');
+        }
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 }

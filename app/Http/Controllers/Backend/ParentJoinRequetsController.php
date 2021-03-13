@@ -8,16 +8,44 @@ use App\Http\Controllers\Controller;
 use App\Parents;
 use App\User;
 use Illuminate\Http\Request;
+
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
+
+
 class ParentJoinRequetsController extends Controller
 {
+    /**
+     * ParentJoinRequetsController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth' , 'role:superAdmin']);
+
+//       $user = User::findOrFail(1);
+//
+//       echo Auth::user();
+//
+////        if(!(auth()->user()->hasRole('superAdmin'))){
+////            return abort(404);
+////        }
+///
+
+
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
+
     public function index()
     {
         return view('dashboard.parent.join');
@@ -44,20 +72,21 @@ class ParentJoinRequetsController extends Controller
 
     public function acceptParent($id){
 
-        $user = User::findOrFail($id);
-        $friendship = Friend::where(['user1' => 1 , 'user2' => $user->id  ] )->orWhere(['user2' => 1 , 'user1' => $user->id])->count();
-        if($friendship == 0){
-            Friend::create([
-                'user1' => 1,
-                'user2' => $user->id,
-            ]);
-            Friend::create([
-                'user2' => 1,
-                'user1' => $user->id,
-            ]);
-        }
-        User::where('id' , $id)->update(['activated'=>1]);
-        return back()->with('status' , 'Parent Accepted Successfully !!');
+
+//            $user = User::findOrFail($id);
+//            $friendship = Friend::where(['user1' => 1, 'user2' => $user->id])->orWhere(['user2' => 1, 'user1' => $user->id])->count();
+//            if ($friendship == 0) {
+//                Friend::create([
+//                    'user1' => 1,
+//                    'user2' => $user->id,
+//                ]);
+//                Friend::create([
+//                    'user2' => 1,
+//                    'user1' => $user->id,
+//                ]);
+//            }
+            User::where('id', $id)->update(['activated' => 1]);
+            return back()->with('status', 'Parent Accepted Successfully !!');
 
     }
 
@@ -89,11 +118,13 @@ class ParentJoinRequetsController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        $files = Files::where('user_id', $id)->paginate();
-        $students = User::where('job_id', 2)->where('activated' , 0)->paginate();
-        $num = 0;
-        return view('dashboard.parent.joinShow' , compact('user' , 'files' , 'students' , 'num') );
+        if($id) {
+            $user = User::findOrFail($id);
+            $files = Files::where('user_id', $id)->paginate();
+            $students = User::where('job_id', 2)->where('activated', 0)->paginate();
+            $num = 0;
+            return view('dashboard.parent.joinShow', compact('user', 'files', 'students', 'num'));
+        }
     }
 
     /**
@@ -104,7 +135,9 @@ class ParentJoinRequetsController extends Controller
      */
     public function edit($id)
     {
-        return view('dashboard.parent.joinEdit' , compact('id'));
+        if($id) {
+            return view('dashboard.parent.joinEdit', compact('id'));
+        }
     }
 
     /**
