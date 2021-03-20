@@ -6,7 +6,9 @@
             <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">Parents Join Requests
-                        <br>
+                        <button type="button" id="back" class="btn btn-xs btn-primary float-right">
+                            Back
+                        </button>
                     </div>
 
                     <div class="card-body">
@@ -24,6 +26,9 @@
 @section('script')
     <script>
         $(document).ready(function(){
+            $('#back').on('click', function () {
+                window.history.go(-1)
+            })
             $('#parents_table').DataTable({
                 processing: true,
                 serverSide: true,

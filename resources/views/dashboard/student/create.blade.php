@@ -7,7 +7,11 @@
                 <div class="card">
                     <div class="card-header">Register Student</div>
 
+
                     <div class="card-body">
+                        @if(Session::has('alert'))
+                            <div class="alert alert-danger" role="alert" style="margin: 10px">{{Session::get('alert')}}</div>
+                        @endif
                         <form method="POST" action="{{route('students.store')}}" enctype="multipart/form-data">
                             @csrf
 
@@ -90,7 +94,6 @@
                                     @enderror
                                 </div>
                             </div>
-
 
                             <div class="form-group row">
                                 <label for="date_of_birthday" class="col-md-4 col-form-label text-md-right">Date of Birth  Day</label>

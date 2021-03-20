@@ -6,6 +6,13 @@
             <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">Students
+
+                        <a href="{{route('studentRequests.index')}}">
+                            <button type="button" class="btn btn-xs btn-primary float-right">
+                                Join Requests
+                                <span style="padding: 0 6px ;border-radius: 20px;background-color: red">0</span>
+                            </button>
+                        </a>
                         <br>
                     </div>
 

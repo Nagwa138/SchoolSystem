@@ -127,7 +127,7 @@ $(document).ready(function(){
                     updateScroll();
                 },
                 error: function (error) {
-                    alert('Data Not send ' + error);
+                  //  alert('Data Not send ' + error);
                 },
             })
     }

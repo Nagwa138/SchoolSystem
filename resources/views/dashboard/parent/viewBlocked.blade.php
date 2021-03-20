@@ -15,11 +15,9 @@
                         </table>
                     </div>
                     <div class="card-footer">
-                        <a href="">
-                            <button type="button" class="btn btn-xs btn-primary">
+                            <button type="button" id="back" class="btn btn-xs btn-primary">
                                 Back
                             </button>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -31,6 +29,12 @@
 @section('script')
     <script>
         $(document).ready(function(){
+
+
+            $('#back').on('click', function () {
+                window.history.go(-1)
+            })
+
             $('#parents_table').DataTable({
                 processing: true,
                 serverSide: true,

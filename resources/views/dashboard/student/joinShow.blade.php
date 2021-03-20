@@ -58,6 +58,12 @@
                                     <span style="font-weight: bold"> Notes :</span><br>
                                     <span>{{$user->student->notes}}</span><br><br>
                                 @endif
+                                @if($requests > 0)
+                                    <span style="font-weight: bold"> Status :</span><br>
+                                    <span>
+                                        Pending
+                                    </span><br><br>
+                                @endif
 
                             </div>
                         </div>
@@ -65,25 +71,33 @@
                             @foreach($files as $file)
                                 @if($file->filetype_id == 3)
                                     <span style="font-weight: bold">Student Picture</span><br><br><br>
-                                    <img src="{{asset('uploads/students/' . $user->id .'/student_picture/'. $file->file)}}" width="200" height="200"><br><br><br>
+                                    <img class="img-fluid" src="{{asset('/storage/' . $file->file)}}" width="200" height="200"><br><br><br>
                                 @endif
                                 @if($file->filetype_id == 5)
                                     <span style="font-weight: bold">Student birth certificate</span><br><br><br>
-                                    <img src="{{asset('uploads/students/' . $user->id .'/birth_certificate/'. $file->file)}}" width="200" height="200"><br><br><br>
+                                    <img class="img-fluid" src="{{asset('/storage/' . $file->file)}}" width="200" height="200"><br><br><br>
                                 @endif
                             @endforeach
                         </div>
-
                     </div>
                     <div id="options" class="card-footer">
                          @if($user->activated == 0)
-                            <a href="{{url('acceptStudent' , $user->id)}}">
-                                <button class="btn btn-xs btn-success">
-                                    Accept Student
-                                </button>
-                            </a>
+                            @if($requests > 0)
+                                <a href="{{url('cancelRequestAcceptStudent' , $user->id)}}">
+                                    <button class="btn btn-xs btn-success">
+                                        Cancel Requests & Accept
+                                    </button>
+                                </a>
+                            @else
+                                <a href="{{url('acceptStudent' , $user->id)}}">
+                                    <button class="btn btn-xs btn-success">
+                                        Accept Student
+                                    </button>
+                                </a>
+
+                            @endif
                           @endif
-                             <a href="{{url('/admin/resetStudent')}}">
+                             <a href="{{url('/admin/resetStudent/' . $user->id)}}">
                                  <button class="btn btn-xs btn-outline-primary">
                                      Ask to reset some Data
                                  </button>
@@ -99,11 +113,9 @@
                                      Edit Student Data
                                  </button>
                              </a>
-                            <a href="{{route('parentRequests.index')}}">
-                                <button type="button" class="btn btn-xs btn-primary float-right">
-                                    Back to Join Requests
+                                <button type="button" id="back" class="btn btn-xs btn-primary float-right">
+                                    Back
                                 </button>
-                            </a>
                     </div>
                 </div>
             </div>
@@ -113,5 +125,19 @@
 
     <!----  end container -->
 
+
+@endsection
+
+@section('script')
+    <script>
+
+        $(document).ready(function () {
+
+            $('#back').on('click', function () {
+                window.history.go(-1)
+            })
+        })
+
+    </script>
 
 @endsection

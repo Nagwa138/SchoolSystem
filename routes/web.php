@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +37,14 @@ Route::group(
     Route::resource('/friends' , 'Backend\FriendController');
     Route::resource('/chats' , 'Backend\ChatController');
     Route::resource('/admins' , 'Backend\AdminController');
+    Route::resource('/modificationRequests' , 'Backend\ModificationRequestController');
+    Route::resource('/modificationResponses' , 'Backend\ModificationResponseController');
+    Route::get('modificationRequests/destroy/{id}' , 'Backend\ModificationRequestController@destroy');
+
+
     Route::get('/chat/getMsgs' , 'Backend\ChatController@getMsgs');
-    Route::get('/admin/resetParent' , 'Backend\AdminController@resetParent');
-    Route::get('/admin/resetStudent' , 'Backend\AdminController@resetStudent');
+    Route::get('/admin/resetParent/{id}' , 'Backend\AdminController@resetParent');
+    Route::get('/admin/resetStudent/{id}' , 'Backend\AdminController@resetStudent');
 
 
     Route::resource('/parentRequests' , 'Backend\ParentJoinRequetsController');
@@ -54,6 +61,8 @@ Route::group(
     Route::get('getAddEditRemoveColumnDataLevel' , 'Backend\LevelController@getAddEditRemoveColumnData');
     Route::get('getAddEditRemoveColumnDataParent' , 'Backend\ParentController@getAddEditRemoveColumnData');
     Route::get('getAddEditRemoveColumnDataStudent' , 'Backend\StudentController@getAddEditRemoveColumnData');
+    Route::get('getAddEditRemoveColumnDataResetRequests' , 'Backend\ModificationRequestController@getAddEditRemoveColumnDataResetRequests');
+
     Route::get('getAddEditRemoveColumnParentRequest' , 'Backend\ParentJoinRequetsController@getAddEditRemoveColumnData');
     Route::get('getAddEditRemoveColumnStudentRequest' , 'Backend\StudentJoinRequetsController@getAddEditRemoveColumnData');
     Route::get('viewBlocked' , 'Backend\ParentController@viewBlocked');
@@ -61,8 +70,28 @@ Route::group(
     Route::get('parent/getBlocked' , 'Backend\ParentController@getBlocked' );
 
     Route::get('acceptParent/{id}' , 'Backend\ParentJoinRequetsController@acceptParent');
+    Route::get('cancelRequestAcceptParent/{id}' , 'Backend\ParentJoinRequetsController@cancelRequestAcceptParent');
     Route::get('acceptStudent/{id}' , 'Backend\StudentJoinRequetsController@acceptStudent');
+    Route::get('cancelRequestAcceptStudent/{id}' , 'Backend\StudentJoinRequetsController@cancelRequestAcceptStudent');
     Route::get('sendNoteForParent' , 'Backend\ParentJoinRequetsController@sendNoteForParent');
+    Route::get('/acceptModificationRequest/{id}' , 'Backend\ModificationResponseController@acceptModificationRequest');
+    Route::get('/acceptModificationItem/{id}' , 'Backend\ModificationResponseController@acceptModificationItem');
+    Route::get('/cancelModificationItem/{id}' , 'Backend\ModificationResponseController@cancelModificationItem');
+
+
+    Route::get('/displayImage/{url}' , 'HomeController@displayImage');
+
+
+//    Route::get('back' , function(){
+////        $links = session()->has('links') ? session('links') : [];
+////        $currentLink = request()->path(); // Getting current URI like 'category/books/'
+////        array_unshift($links, $currentLink); // Putting it in the beginning of links array
+////        session(['links' => $links]); // Saving links array to the session
+////
+////        return redirect(session('links')[1]); // Will redirect 2 links back
+//
+//        return Redirect::back();
+//    });
 
 
 

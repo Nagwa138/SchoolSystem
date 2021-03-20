@@ -5,14 +5,18 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">Students Join Requests
+                    @if(Session::has('status'))
+                        <div class="alert alert-success" role="alert" style="margin: 10px">{{Session::get('status')}}</div>
+                    @endif
+                    <div class="card-header">Modification Requests
+
                         <button type="button" id="back" class="btn btn-xs btn-primary float-right">
                             Back
                         </button>
                     </div>
 
                     <div class="card-body">
-                        <table id="students_table" class="table table-hover table-striped details-control">
+                        <table id="requests_table" class="table table-hover table-striped details-control">
 
                         </table>
                     </div>
@@ -29,10 +33,11 @@
             $('#back').on('click', function () {
                 window.history.go(-1)
             })
-            $('#students_table').DataTable({
+
+            $('#requests_table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{url('getAddEditRemoveColumnStudentRequest')}}',
+                ajax: '{{url('getAddEditRemoveColumnDataResetRequests')}}',
                 columns: [
                     {
                         "className":      'details-control',
@@ -41,11 +46,11 @@
                         "data":           null,
                         "defaultContent": ''
                     },
-                    {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'email', name: 'email'},
+                    {data: 'Modification Type', name: 'Modification Type'},
+                    {data: 'Name', name: 'Name'},
+                    {data: 'E-mail', name: 'E-mail'},
                     {data: 'action', name: 'action', orderable: true, searchable: true},
-                ], order: [[1, 'asc']]
+                ]
             });
         })
     </script>

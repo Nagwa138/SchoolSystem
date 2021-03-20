@@ -10,11 +10,10 @@
             <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{route('parentRequests.index')}}">
-                        <button type="button" class="btn btn-xs btn-primary float-right">
+                        <button type="button" id="back" class="btn btn-xs btn-primary float-right">
                             Back
                         </button>
-                        </a>
+
                         <h3>Join Request from Parent : {{$user->name}} </h3>
                     </div>
                     @if($user->activated == 1)
@@ -68,6 +67,13 @@
                                     <span style="font-weight: bold"> Father National ID :</span><br>
                                     <span>{{$user->parent->father_national_id}}</span><br><br>
                                 @endif
+                                @if($requests > 0)
+                                    <span style="font-weight: bold"> Status :</span><br>
+                                    <span>
+                                        Pending
+                                    </span><br><br>
+                                @endif
+
 
                             </div>
                         </div>
@@ -75,11 +81,11 @@
                             @foreach($files as $file)
                                 @if($file->filetype_id == 2)
                                     <span style="font-weight: bold">Father Picture</span><br><br><br>
-                                    <img src="{{asset('uploads/parents/' . $user->id .'/father_picture/'. $file->file)}}" width="200" height="200"><br><br><br>
+                                    <img src="{{asset('/storage/' . $file->file)}}" width="200" height="200" class="img-fluid"><br><br><br>
                                 @endif
                                     @if($file->filetype_id == 1)
                                         <span style="font-weight: bold">Father Identify Card</span><br><br><br>
-                                        <img src="{{asset('uploads/parents/' . $user->id .'/father_identify_card/'. $file->file)}}" width="200" height="200"><br><br><br>
+                                        <img src="{{asset('/storage/' . $file->file)}}" width="200" height="200" class="img-fluid"><br><br><br>
                                     @endif
                             @endforeach
                         </div>
@@ -87,13 +93,23 @@
                     </div>
                     <div id="options" class="card-footer">
                         @if($user->activated == 0)
-                            <a href="{{url('acceptParent' , $user->id)}}">
-                                <button class="btn btn-xs btn-success">
-                                    Accept Parent
-                                </button>
-                            </a>
+                            @if($requests > 0)
+                                <a href="{{url('cancelRequestAcceptParent' , $user->id)}}">
+                                    <button class="btn btn-xs btn-success">
+                                        Cancel Requests & Accept
+                                    </button>
+                                </a>
+                                @else
+                                <a href="{{url('acceptParent' , $user->id)}}">
+                                    <button class="btn btn-xs btn-success">
+                                        Accept Parent
+                                    </button>
+                                </a>
+
+                            @endif
+
                          @endif
-                            <a href="{{url('/admin/resetParent')}}">
+                            <a href="{{url('/admin/resetParent/' . $user->id)}}">
                                 <button class="btn btn-xs btn-outline-primary">
                                     Ask to reset some of his Data
                                 </button>
@@ -121,5 +137,21 @@
 
     <!----  end container -->
 
+
+@endsection
+
+
+
+@section('script')
+    <script>
+
+        $(document).ready(function () {
+
+            $('#back').on('click', function () {
+                window.history.go(-1)
+            })
+        })
+
+    </script>
 
 @endsection

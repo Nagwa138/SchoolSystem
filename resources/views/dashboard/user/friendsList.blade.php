@@ -38,11 +38,12 @@
                                         <td>
 
 
-                                            <a href="{{route('chats.edit' ,$friend->user2)}}" style="cursor: pointer;color: black"><span style="font-size:20px;"> <b>
+                                            <a href="{{route('chats.edit' ,$friend->user2)}}" style="cursor: pointer;color: black"><span style="font-size:15px;"> <b>
                                                          @foreach($users as $user)
                                                              @if($user->id == $friend->user2)
                                                                 {{$user->name}}
-                                                                @if($user->job_id == 0)   ( admin ) @endif
+                                                                <span class=" text-light" style="padding: 0 6px ;border-radius: 20px;background-color: red">0</span>
+                                                            @if($user->job_id == 0)   ( admin ) @endif
                                                                 @if($user->job_id == 1)   ( parent ) @endif
                                                                 @if($user->job_id == 2)   ( studnt ) @endif
                                                                 @if($user->job_id  == 3)   ( employee ) @endif

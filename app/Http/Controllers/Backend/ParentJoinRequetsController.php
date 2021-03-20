@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Files;
 use App\Friend;
 use App\Http\Controllers\Controller;
+use App\ModifyItem;
+use App\ModifyRequest;
 use App\Parents;
 use App\User;
 use Illuminate\Http\Request;
@@ -48,12 +50,16 @@ class ParentJoinRequetsController extends Controller
 
     public function index()
     {
+        $this->middleware('role:superAdmin');
+
         return view('dashboard.parent.join');
     }
 
 
     public function getAddEditRemoveColumnData()
     {
+        $this->middleware('role:superAdmin');
+
         $parents_requests = DB::table('users')
             ->where('activated' , 0)
             ->where('job_id' , 1)
@@ -71,6 +77,7 @@ class ParentJoinRequetsController extends Controller
     }
 
     public function acceptParent($id){
+        $this->middleware('role:superAdmin');
 
 
 //            $user = User::findOrFail($id);
@@ -90,6 +97,24 @@ class ParentJoinRequetsController extends Controller
 
     }
 
+    public function cancelRequestAcceptParent($id){
+        $this->middleware('role:superAdmin');
+
+        $requests = DB::table('modify_requests')
+            ->where('user_id' , $id)
+            ->get();
+
+        foreach ($requests as $request){
+            ModifyItem::where('modify_request_id' , $request->id)->delete();
+        }
+
+        DB::table('modify_requests')
+            ->where('user_id' , $id)
+            ->update(['approved' => -1]);
+
+        User::where('id', $id)->update(['activated' => 1]);
+        return back()->with('status', 'Parent Accepted Successfully !!');
+    }
     public function sendNoteForParent(){
 
     }
@@ -118,13 +143,15 @@ class ParentJoinRequetsController extends Controller
      */
     public function show($id)
     {
-        if($id) {
-            $user = User::findOrFail($id);
+        $this->middleware('role:superAdmin');
+
+        $user = User::findOrFail($id);
             $files = Files::where('user_id', $id)->paginate();
             $students = User::where('job_id', 2)->where('activated', 0)->paginate();
             $num = 0;
-            return view('dashboard.parent.joinShow', compact('user', 'files', 'students', 'num'));
-        }
+            $requests = ModifyRequest::where('user_id' , $id)->where('approved' , 0)->count();
+            return view('dashboard.parent.joinShow', compact('user', 'files', 'students', 'num' , 'requests'));
+
     }
 
     /**
@@ -135,9 +162,10 @@ class ParentJoinRequetsController extends Controller
      */
     public function edit($id)
     {
-        if($id) {
-            return view('dashboard.parent.joinEdit', compact('id'));
-        }
+        $this->middleware('role:superAdmin');
+
+        return view('dashboard.parent.joinEdit', compact('id'));
+
     }
 
     /**

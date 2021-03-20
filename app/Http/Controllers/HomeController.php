@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Parents;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use Auth;
 use App\Student;
+use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\File;
 
 class HomeController extends Controller
 {
@@ -63,4 +66,10 @@ class HomeController extends Controller
     }
 
 
+    public function displayImage($url){
+
+        $src = Storage::url($url);
+
+        return '<img src="' . $src . '" width=200  height=200 >' ;
+    }
 }

@@ -2,25 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53fbea17-38a5-4512-a962-a331b8946562" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/dashboard/student/join.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/dashboard/reset_request/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/dashboard/reset_request/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/dashboard/reset_respond/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Chat.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Chat.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/ChatController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/ChatController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/FileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/FileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/FileTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/FileTypeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/FriendController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/FriendController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/JobController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/JobController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/LevelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/LevelController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/ParentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/ParentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/ParentJoinRequetsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/ParentJoinRequetsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/StageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/StageController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/StudentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/StudentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/StudentJoinRequetsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/StudentJoinRequetsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/laratrust.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/laratrust.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/snappy.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/snappy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/admin/resetParent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/admin/resetParent.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/admin/resetStudent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/admin/resetStudent.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/parent/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/parent/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/parent/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/parent/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/parent/join.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/parent/join.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/dashboard/parent/joinShow.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/parent/joinShow.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/parent/viewBlocked.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/parent/viewBlocked.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/student/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/student/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/student/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/student/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/student/join.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/student/join.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/dashboard/student/joinShow.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/student/joinShow.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/dashboard/user/chatRoom.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/user/chatRoom.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/user/friendsList.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/user/friendsList.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +183,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Attendance/Project/Attendance/project/Attendance" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/storage/app/public" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -184,6 +194,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Laravel Projects\Ramsa Ebda3\SchoolSystem\storage\app\public" />
       <recent name="E:\Laravel Projects\Ramsa Ebda3\SchoolSystem\app\Models" />
       <recent name="E:\Laravel Projects\Ramsa Ebda3\SchoolSystem\resources\lang" />
     </key>
@@ -206,7 +217,11 @@
       <updated>1609625659162</updated>
       <workItem from="1609625670521" duration="10618000" />
       <workItem from="1609684042902" duration="114926000" />
-      <workItem from="1615566849974" duration="15353000" />
+      <workItem from="1615566849974" duration="20698000" />
+      <workItem from="1615723014386" duration="34811000" />
+      <workItem from="1615851514678" duration="62055000" />
+      <workItem from="1616133919511" duration="3810000" />
+      <workItem from="1616175594534" duration="27008000" />
     </task>
     <servers />
   </component>
@@ -214,29 +229,33 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1615640904645">
+    <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1616200907331">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1615640904645" />
+    <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1616200907331" />
     <state x="459" y="277" key="ComposerInitDialogKey" timestamp="1609802273690">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="459" y="277" key="ComposerInitDialogKey/0.0.1366.728@0.0.1366.728" timestamp="1609802273690" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1615573463372">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1615758436583">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1615573463372" />
-    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1615641115711">
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1615758436583" />
+    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1615943114265">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1615641115711" />
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1615943114265" />
     <state x="184" y="6" key="SettingsEditor" timestamp="1609712872919">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1609712872919" />
-    <state x="384" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1615566849982">
+    <state x="384" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1616175607702">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="384" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1615566849982" />
+    <state x="384" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1616175607702" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1616027502606">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1616027502606" />
   </component>
 </project>

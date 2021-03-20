@@ -20,6 +20,8 @@
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.bootstrap4.min.js"></script>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <script src="{{asset('/vendor/datatables/buttons.server-side.js')}}"></script>
 
     <!-- Fonts -->
@@ -82,10 +84,15 @@
                         @else
                             @if (Auth::user()->hasRole('superAdmin'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('parents.index')}}">Parents</a>
+                                <a class="nav-link" href="{{route('parents.index')}}">
+                                    Parents
+                                    <span class=" text-light" style="padding: 0 6px ;border-radius: 20px;background-color: red">0</span>
+                                </a>
                             </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('students.index')}}">Students</a>
+                                    <a class="nav-link" href="{{route('students.index')}}">Students
+                                        <span class=" text-light" style="padding: 0 6px ;border-radius: 20px;background-color: red">0</span>
+                                    </a>
                             </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('stages.index')}}">Stages</a>
@@ -96,7 +103,10 @@
                             @endif
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('friends.index')}}">Chat</a>
+                                    <a class="nav-link" href="{{route('friends.index')}}">
+                                        Chat
+                                        <span class=" text-light" style="padding: 0 6px ;border-radius: 20px;background-color: red">0</span>
+                                    </a>
                                 </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

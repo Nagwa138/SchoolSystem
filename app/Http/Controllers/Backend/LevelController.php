@@ -18,11 +18,14 @@ class LevelController extends Controller
      */
     public function index()
     {
+        $this->middleware('role:superAdmin');
         return view('dashboard.level.index');
     }
 
     public function getAddEditRemoveColumnData()
     {
+        $this->middleware('role:superAdmin');
+
         $levels = DB::table('levels')
             ->select(['id', 'name', 'stage_id','created_at', 'updated_at']);
 
@@ -46,6 +49,8 @@ class LevelController extends Controller
      */
     public function create()
     {
+        $this->middleware('role:superAdmin');
+
         $stages = Stage::all();
         return view('dashboard.level.create' , compact('stages'));
     }
@@ -58,10 +63,11 @@ class LevelController extends Controller
      */
     public function store(Request $request)
     {
-        if($request) {
-            Level::create(['name' => $request->name, 'stage_id' => $request->stage_id]);
+        $this->middleware('role:superAdmin');
+
+        Level::create(['name' => $request->name, 'stage_id' => $request->stage_id]);
             return redirect()->route('levels.index')->with('status', 'Level Added Successfully');
-        }
+
     }
 
     /**
@@ -72,10 +78,11 @@ class LevelController extends Controller
      */
     public function show($id)
     {
-        if($id) {
-            $level = Level::findOrFail($id);
+        $this->middleware('role:superAdmin');
+
+        $level = Level::findOrFail($id);
             return view('dashboard.level.show', compact('level'));
-        }
+
     }
 
     /**
@@ -86,11 +93,12 @@ class LevelController extends Controller
      */
     public function edit($id)
     {
-        if($id) {
-            $level = Level::findOrFail($id);
+        $this->middleware('role:superAdmin');
+
+        $level = Level::findOrFail($id);
             $stages = Stage::all();
             return view('dashboard.level.edit', compact('level', 'stages'));
-        }
+
     }
 
     /**
@@ -102,10 +110,11 @@ class LevelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request) {
-            Level::findOrFail($id)->update(['name' => $request->name, 'stage_id' => $request->stage_id]);
+        $this->middleware('role:superAdmin');
+
+        Level::findOrFail($id)->update(['name' => $request->name, 'stage_id' => $request->stage_id]);
             return redirect()->route('levels.index')->with('status', 'Updated !!');
-        }
+
     }
 
     /**
@@ -116,12 +125,11 @@ class LevelController extends Controller
      */
     public function destroy($id)
     {
-        if($id) {
+        $this->middleware('role:superAdmin');
 
-
-            Level::findOrFail($id)->delete();
+        Level::findOrFail($id)->delete();
             return redirect()->back()->with('status', 'Level Deleted Successfully !');
-        }
+
     }
 
     public function __construct()

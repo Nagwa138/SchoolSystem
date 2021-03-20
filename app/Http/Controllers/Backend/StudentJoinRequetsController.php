@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Chat;
 use App\Friend;
 use App\Http\Controllers\Controller;
+use App\ModifyItem;
+use App\ModifyRequest;
 use App\User;
 use Illuminate\Http\Request;
 use App\Files;
@@ -38,6 +40,9 @@ class StudentJoinRequetsController extends Controller
 
     public function getAddEditRemoveColumnData()
     {
+
+
+
         $students_requests = DB::table('users')
             ->where('activated' , 0)
             ->where('job_id' , 2)
@@ -45,10 +50,24 @@ class StudentJoinRequetsController extends Controller
 
         return Datatables::of($students_requests)
             ->addColumn('action', function ($students_request) {
-                return '<a href="'. route('studentRequests.show' , $students_request->id) .'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> view Request</a>';
-            })->editColumn('id', 'ID: {{$id}}')
-            ->editColumn('name', 'Name : {{$name}}')
-            ->editColumn('email', 'E-mail : {{$email}}')
+                if(User::find($students_request->id)->student->parent->user->activated == 1){
+                    return '<a href="'. route('studentRequests.show' , $students_request->id) .'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> view Request</a>';
+                }
+            })->editColumn('id',function ($students_request) {
+                if(User::find($students_request->id)->student->parent->user->activated == 1){
+                    return  'ID: ' . $students_request->id ;
+                }
+            })
+            ->editColumn('name',function ($students_request) {
+                if (User::find($students_request->id)->student->parent->user->activated == 1) {
+                    return 'Name : '. $students_request->name ;
+                }
+            })
+            ->editColumn('email',function ($students_request) {
+                if (User::find($students_request->id)->student->parent->user->activated == 1) {
+                    return  'E-mail : ' . $students_request->email ;
+                }
+            })
             ->removeColumn('updated_at')
             ->removeColumn('created_at')
             ->make(true);
@@ -79,7 +98,7 @@ class StudentJoinRequetsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
@@ -87,7 +106,9 @@ class StudentJoinRequetsController extends Controller
 
             $files = Files::where('user_id', $id)->paginate();
             $user = User::findOrFail($id);
-            return view('dashboard.student.joinShow', compact('user', 'files'));
+            $requests = ModifyRequest::where('user_id' , $id)->where('approved' , 0)->count();
+
+        return view('dashboard.student.joinShow', compact('user', 'files' , 'requests'));
 
     }
 
@@ -120,6 +141,25 @@ class StudentJoinRequetsController extends Controller
 
             return back()->with('status', 'Student Accepted Successfully !!');
 
+    }
+
+    public function cancelRequestAcceptStudent($id){
+        $this->middleware('role:superAdmin');
+
+        $requests = DB::table('modify_requests')
+            ->where('user_id' , $id)
+            ->get();
+
+        foreach ($requests as $request){
+            ModifyItem::where('modify_request_id' , $request->id)->delete();
+        }
+
+        DB::table('modify_requests')
+            ->where('user_id' , $id)
+            ->update(['approved' => -1]);
+
+        User::where('id', $id)->update(['activated' => 1]);
+        return back()->with('status', 'Parent Accepted Successfully !!');
     }
 
     /**

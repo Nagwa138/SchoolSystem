@@ -7,7 +7,11 @@
                 <div class="card">
                     <div class="card-header">Register Parent</div>
 
+
                     <div class="card-body">
+                        @if(Session::has('alert'))
+                            <div class="alert alert-danger" role="alert" style="margin: 10px">{{Session::get('alert')}}</div>
+                        @endif
                         <form method="POST" action="{{route('parents.store')}}" enctype="multipart/form-data">
                             @csrf
 

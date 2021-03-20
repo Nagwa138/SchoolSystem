@@ -13,10 +13,21 @@ use App\Level;
 class StageController extends Controller
 {
     /**
+     * StageController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware([ 'auth' , 'role:superAdmin']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function index(StagesDataTable $dataTable)
     {
         //return $dataTable->render('dashboard.stage.index');
@@ -105,8 +116,6 @@ class StageController extends Controller
      */
     public function destroy($id)
     {
-        if($id) {
-
 
             if (Level::where('stage_id', $id)->count() > 0) {
                 return 'Can not Delete';
@@ -114,6 +123,6 @@ class StageController extends Controller
                 Stage::findOrFail($id)->delete();
                 return redirect()->back()->with('status', 'Stage Deleted Successfully !');
             }
-        }
+
     }
 }

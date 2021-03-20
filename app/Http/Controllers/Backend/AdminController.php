@@ -8,21 +8,32 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     /**
+     * AdminController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth' , 'role:superAdmin']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function index()
     {
         //
     }
 
-    public function resetStudent(){
-        return view('dashboard.admin.resetStudent');
+    public function resetStudent($id){
+        return view('dashboard.admin.resetStudent' , compact('id'));
     }
 
-    public function resetParent(){
-        return view('dashboard.admin.resetParent');
+    public function resetParent($id){
+        return view('dashboard.admin.resetParent' , compact('id'));
     }
 
     /**

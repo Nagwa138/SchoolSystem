@@ -45,7 +45,7 @@ class ParentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -87,46 +87,40 @@ class ParentController extends Controller
 
             if ($request->hasFile('father_picture')) {
 
+                $avatar = $request->file('father_picture');
+
                 $path_father_picture = 'uploads/parents/' . $user->id . '/father_picture/';
-                if (!file_exists($path_father_picture)) {
-                    mkdir($path_father_picture, 0777, true);
+
+                if (!Storage::exists($path_father_picture)) {
+                    Storage::disk('public')->makeDirectory($path_father_picture);
                 }
-
-                //Storage::disk('public_uploads')->delete('parents/' . $user->id .'/'. User::);
-                $file_extention_father_picture = $request->file('father_picture')->getClientOriginalExtension();
-
-                $father_picture = time() . "." . $file_extention_father_picture;
-                $request->file('father_picture')->move($path_father_picture, $father_picture);
 
                 $father_picture_insert = new Files();
                 $father_picture_insert->user_id = $user->id;
                 $father_picture_insert->filetype_id = 2;
-                $father_picture_insert->file = $father_picture;
+                $father_picture_insert->file =$avatar->store($path_father_picture , 'public');
                 $father_picture_insert->save();
 
             }
 
             if ($request->hasFile('father_identify_card')) {
 
+                $avatar = $request->file('father_identify_card');
+
                 $path_father_identify_card = 'uploads/parents/' . $user->id . '/father_identify_card/';
-                if (!file_exists($path_father_identify_card)) {
-                    mkdir($path_father_identify_card, 0777, true);
+
+                if (!Storage::exists($path_father_identify_card)) {
+                    Storage::disk('public')->makeDirectory($path_father_identify_card);
                 }
 
-                //Storage::disk('public_uploads')->delete('parents/' . $user->id .'/'. User::);
-
-                $file_extention_father_identify_card = $request->file('father_identify_card')->getClientOriginalExtension();
-                $father_identify_card = time() . "." . $file_extention_father_identify_card;
-                $request->file('father_identify_card')->move($path_father_identify_card, $father_identify_card);
-
-                $father_identify_card_insert = new Files();
-                $father_identify_card_insert->user_id = $user->id;
-                $father_identify_card_insert->filetype_id = 1;
-                $father_identify_card_insert->file = $father_identify_card;
-                $father_identify_card_insert->save();
+                $father_picture_insert = new Files();
+                $father_picture_insert->user_id = $user->id;
+                $father_picture_insert->filetype_id = 1;
+                $father_picture_insert->file =$avatar->store($path_father_identify_card , 'public');
+                $father_picture_insert->save();
 
             } else {
-                return 'no';
+                return back()->with('alert' , 'File Type Not Defined ');
             }
             /*
                     if($request->hasFile('additional')) {
@@ -158,6 +152,7 @@ class ParentController extends Controller
 
     public function getAddEditRemoveColumnData()
     {
+
         $parents = DB::table('users')
             ->where('job_id' , 1)
             ->where('activated' , 1)
@@ -178,11 +173,12 @@ class ParentController extends Controller
     }
     public function show($id)
     {
-        if($id) {
-            $user = User::findOrFail($id);
+        $this->middleware('role:superAdmin');
+
+        $user = User::findOrFail($id);
             $files = Files::where('user_id', $id)->paginate();
             return view('dashboard.parent.show', compact('user', 'files'));
-        }
+
     }
 
     /**
@@ -216,26 +212,31 @@ class ParentController extends Controller
      */
     public function destroy($id)
     {
-        if($id) {
-            User::where('id', $id)->update(['activated' => -1]);
+        $this->middleware('role:superAdmin');
+
+        User::where('id', $id)->update(['activated' => -1]);
             return back()->with('status', 'Parent Disabled Successfully !!');
-        }
+
     }
 
     public function enable($id)
     {
-        if($id) {
-            User::where('id', $id)->update(['activated' => 1]);
+        $this->middleware('role:superAdmin');
+
+        User::where('id', $id)->update(['activated' => 1]);
             return back()->with('status', 'Parent Enabled Successfully !!');
-        }
+
     }
 
     public function getBlocked(){
+        $this->middleware('role:superAdmin');
+
         return view('dashboard.parent.viewBlocked');
     }
 
 
     public function viewBlocked(){
+        $this->middleware('role:superAdmin');
 
         $parents = DB::table('users')
             ->where('job_id' , 1)

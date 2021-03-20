@@ -5,14 +5,16 @@
 
     <!----  start container -->
 
+
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Ask Parent to Modify his Data</h3>
+                        <h3>Ask Parent to Modify his Data </h3>
                     </div>
-                    <form action="" method="post">
+                    <form id="form" method="post">
                         <div class="card-body">
                             @csrf
 
@@ -29,21 +31,6 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="father_first_name_note" class="col-md-4 col-form-label text-md-right"> Note for reset Father First Name :</label>
-
-                                <div class="col-md-6">
-                                    <input id="father_first_name_note" type="text" placeholder="(optional)" class="form-control @error('father_first_name_note') is-invalid @enderror" name="father_first_name_note" value="{{ old('father_first_name_note') }}"  autocomplete="father_first_name_note" autofocus>
-
-                                    @error('father_first_name_note')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="form-group row">
                                 <div class="col-md-6 offset-md-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="father_middle_name" id="father_middle_name" {{ old('father_middle_name') ? 'checked' : '' }}>
@@ -56,21 +43,6 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="father_middle_name_note" class="col-md-4 col-form-label text-md-right"> Note for reset Father Middle Name :</label>
-
-                                <div class="col-md-6">
-                                    <input id="father_middle_name_note" type="text" placeholder="(optional)" class="form-control @error('father_middle_name_note') is-invalid @enderror" name="father_middle_name_note" value="{{ old('father_middle_name_note') }}"  autocomplete="father_middle_name_note" autofocus>
-
-                                    @error('father_middle_name_note')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="form-group row">
                                 <div class="col-md-6 offset-md-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="father_last_name" id="father_last_name" {{ old('father_last_name') ? 'checked' : '' }}>
@@ -79,20 +51,6 @@
                                             Father Last Name
                                         </label>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="father_last_name_note" class="col-md-4 col-form-label text-md-right"> Note for reset Father Last Name :</label>
-
-                                <div class="col-md-6">
-                                    <input id="father_last_name_note" type="text" placeholder="(optional)" class="form-control @error('father_last_name_note') is-invalid @enderror" name="father_last_name_note" value="{{ old('father_last_name_note') }}"  autocomplete="father_last_name_note" autofocus>
-
-                                    @error('father_last_name_note')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -110,20 +68,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="email_note" class="col-md-4 col-form-label text-md-right"> Note for reset E-mail :</label>
-
-                                <div class="col-md-6">
-                                    <input id="email_note" type="text" placeholder="(optional)" class="form-control @error('email_note') is-invalid @enderror" name="email_note" value="{{ old('email_note') }}"  autocomplete="email_note" autofocus>
-
-                                    @error('email_note')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
 
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-4">
@@ -138,20 +82,6 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="father_phone_number_note" class="col-md-4 col-form-label text-md-right"> Note for reset Father Phone Number :</label>
-
-                                <div class="col-md-6">
-                                    <input id="father_phone_number_note" type="text" placeholder="(optional)" class="form-control @error('father_phone_number_note') is-invalid @enderror" name="father_phone_number_note" value="{{ old('father_phone_number_note') }}"  autocomplete="father_phone_number_note" autofocus>
-
-                                    @error('father_phone_number_note')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
                                 <div class="col-md-6 offset-md-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="father_picture" id="father_picture" {{ old('father_picture') ? 'checked' : '' }}>
@@ -160,20 +90,6 @@
                                             Father Picture
                                         </label>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="father_picture_note" class="col-md-4 col-form-label text-md-right"> Note for reset Father Picture :</label>
-
-                                <div class="col-md-6">
-                                    <input id="father_picture_note" type="text" placeholder="(optional)" class="form-control @error('father_picture_note') is-invalid @enderror" name="father_picture_note" value="{{ old('father_picture_note') }}"  autocomplete="father_picture_note" autofocus>
-
-                                    @error('father_picture_note')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -190,51 +106,38 @@
                                 </div>
                             </div>
 
+
+{{--                            <div class="form-group row">--}}
+{{--                                <div class="col-md-6 offset-md-4">--}}
+{{--                                    <div class="form-check">--}}
+{{--                                        <input class="form-check-input" type="checkbox" name="other" id="other" {{ old('other') ? 'checked' : '' }}>--}}
+
+{{--                                        <label class="form-check-label" for="other">--}}
+{{--                                            Other wanted Files--}}
+{{--                                        </label>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="form-group row">--}}
+{{--                                <label for="other_number_note" class="col-md-4 col-form-label text-md-right"> Note of Other wanted Files :</label>--}}
+
+{{--                                <div class="col-md-6">--}}
+{{--                                    <input id="other_number_note" type="text" class="form-control @error('other_number_note') is-invalid @enderror" name="other_number_note" autocomplete="other_number_note" autofocus placeholder="( optional )">--}}
+
+{{--                                    @error('other_number_note')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{ $message }}</strong>--}}
+{{--                                    </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
                             <div class="form-group row">
-                                <label for="father_identify_card_note" class="col-md-4 col-form-label text-md-right"> Note for reset Father Identify Card :</label>
+                                <label for="other_note" class="col-md-4 col-form-label text-md-right"> Note :</label>
 
                                 <div class="col-md-6">
-                                    <input id="father_identify_card_note" type="text" placeholder="(optional)" class="form-control @error('father_identify_card_note') is-invalid @enderror" name="father_identify_card_note" value="{{ old('father_identify_card_note') }}"  autocomplete="father_identify_card_note" autofocus>
-
-                                    @error('father_identify_card_note')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="other" id="other" {{ old('other') ? 'checked' : '' }}>
-
-                                        <label class="form-check-label" for="other">
-                                            Other wanted Files
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="other_number" class="col-md-4 col-form-label text-md-right"> Number of Other wanted Files :</label>
-
-                                <div class="col-md-6">
-                                    <input id="other_number" type="number"  required class="form-control @error('other_number') is-invalid @enderror" name="other_number" value="{{ old('other_number') }}"  autocomplete="other_number" autofocus>
-
-                                    @error('other_number')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="other_note" class="col-md-4 col-form-label text-md-right"> Note for Other wanted Files :</label>
-
-                                <div class="col-md-6">
-                                    <input id="other_note" type="text" class="form-control @error('other_note') is-invalid @enderror" name="other_note" value="{{ old('other_note') }}"  autocomplete="other_note" autofocus>
+                                    <input id="other_note" type="text" class="form-control @error('other_note') is-invalid @enderror" name="other_note" value="{{ old('other_note') }}"  autocomplete="other_note" autofocus placeholder="( optional )">
 
                                     @error('other_note')
                                     <span class="invalid-feedback" role="alert">
@@ -245,16 +148,21 @@
                             </div>
 
                         </div>
+
                         <div id="options" class="card-footer">
                             <button type="submit" class="btn btn-xs btn-success">
                                 send
                             </button>
-                            <a href="">
-                                <button type="button" class="btn btn-xs btn-primary float-right">
+                                <button type="button" id="back" class="btn btn-xs btn-primary float-right">
                                     Back
                                 </button>
-                            </a>
                         </div>
+                        <input type="reset" style="display: none" id="resetForm">
+                    </form>
+                    <form id="checked" style="display: none">
+                        @csrf
+                        <input type="reset" style="display: none" id="resetCheck">
+                        <input type="hidden" name="id" value="{{$id}}">
                     </form>
                 </div>
             </div>
@@ -264,5 +172,129 @@
 
     <!----  end container -->
 
+
+@endsection
+
+
+
+@section('script')
+<script>
+
+    $(document).ready(function () {
+
+
+        $(document).ready(function () {
+
+            $('#back').on('click', function () {
+                window.history.go(-1)
+            })
+        })
+
+
+
+        var inputs = '';
+        $('#form').on('submit', function (e) {
+            e.preventDefault();
+
+            if(checkButtons().length > 0){
+
+
+                for(var i = 0; i < checkedButtons.length; i++) {
+
+                    inputs+='<input type="checkbox" name="inputs[]" value="'+ checkedButtons[i]  +'" checked>';
+
+                }
+
+                if($('#other_note').val() !== ''){
+                    inputs+='<input type="text" name="note" value="'+ $('#other_note').val()  +'">';
+                }
+                if($('#other_number_note').val() !== ''){
+                    inputs+='<input type="text" name="other_note" value="'+ $('#other_number_note').val()  +'">';
+                }
+
+                $('#checked').append(inputs);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('modificationRequests.store')}}",
+                    data: $('#checked').serialize(),
+                    success: function (response) {
+                        clearData();
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Data sent successfully !',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    error: function (error) {
+                            var err = eval("(" + error.responseText + ")");
+                            console.log(error.responseText)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Opss' ,
+                            text: 'Something went wrong!',
+                        })
+                    }
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Choose At Last One Field!',
+                })
+            }
+
+    })
+
+
+     function checkButtons () {
+            for(var i = 0; i < buttonsName.length; i++){
+                if(isCheckedById(buttonsName[i])){
+                    checkedButtons.push(buttonsName[i]);
+                } else {
+                    if( jQuery.inArray( buttonsName[i], checkedButtons ) !== -1){
+                        checkedButtons.splice(buttonsName[i]);
+                    }
+                }
+            }
+           // console.log(checkedButtons);
+
+         return checkedButtons;
+        }
+
+        var buttonsName = ['father_first_name' , 'father_middle_name' , 'father_last_name',
+                            'email' , 'father_phone_number' , 'father_picture' , 'father_identify_card',
+                            'other' ];
+        var checkedButtons = [];
+
+        function isCheckedById(id) {
+            var checked = $("input[id=" + id + "]:checked").length;
+
+            if (checked === 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function clearData() {
+            $('#resetForm').click();
+            $('#resetCheck').click();
+            inputs = '';
+            while(checkedButtons.length > 0) {
+                checkedButtons.pop();
+            }
+
+            $('#checked').empty();
+            $('#checked').append( '@csrf' +'<input type="reset" style="display: none" id="resetCheck">\n' +
+                '                        <input type="hidden" name="id" value="{{$id}}">');
+            console.log(inputs);
+        }
+
+
+    })
+</script>
 
 @endsection

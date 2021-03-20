@@ -13,6 +13,7 @@ use Auth;
 use App\Level;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\User;
 use Yajra\DataTables\Facades\DataTables;
@@ -26,11 +27,15 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $this->middleware('role:superAdmin');
+
         return view('dashboard.student.index');
     }
 
     public function getAddEditRemoveColumnData()
     {
+        $this->middleware('role:superAdmin');
+
         $students = DB::table('users')
             ->where('job_id' , 2)
             ->where('activated' , 1)
@@ -120,58 +125,39 @@ class StudentController extends Controller
 
             if ($request->hasFile('student_picture')) {
 
+                $avatar = $request->file('student_picture');
+
                 $path_student_picture = 'uploads/students/' . $user->id . '/student_picture/';
-                if (!file_exists($path_student_picture)) {
-                    mkdir($path_student_picture, 0777, true);
+
+                if (!Storage::exists($path_student_picture)) {
+                    Storage::disk('public')->makeDirectory($path_student_picture);
                 }
 
-                //Storage::disk('public_uploads')->delete('parents/' . $user->id .'/'. User::);
-                $file_extention_student_picture = $request->file('student_picture')->getClientOriginalExtension();
-
-                $student_picture = time() . "." . $file_extention_student_picture;
-                $request->file('student_picture')->move($path_student_picture, $student_picture);
-
-                $student_picture_insert = new Files();
-                $student_picture_insert->user_id = $user->id;
-                $student_picture_insert->filetype_id = 3;
-                $student_picture_insert->file = $student_picture;
-                $student_picture_insert->save();
+                $insert = new Files();
+                $insert->user_id = $user->id;
+                $insert->filetype_id = 3;
+                $insert->file =$avatar->store($path_student_picture , 'public');
+                $insert->save();
 
             }
 
             if ($request->hasFile('birth_certificate')) {
 
+                $avatar = $request->file('birth_certificate');
+
                 $path_birth_certificate = 'uploads/students/' . $user->id . '/birth_certificate/';
-                if (!file_exists($path_birth_certificate)) {
-                    mkdir($path_birth_certificate, 0777, true);
+
+                if (!Storage::exists($path_birth_certificate)) {
+                    Storage::disk('public')->makeDirectory($path_birth_certificate);
                 }
 
-                //Storage::disk('public_uploads')->delete('parents/' . $user->id .'/'. User::);
-                $file_extention_student_birth_certificate = $request->file('birth_certificate')->getClientOriginalExtension();
-
-                $student_birth_certificate = time() . "." . $file_extention_student_birth_certificate;
-                $request->file('birth_certificate')->move($path_birth_certificate, $student_birth_certificate);
-
-                $student_birth_certificate_insert = new Files();
-                $student_birth_certificate_insert->user_id = $user->id;
-                $student_birth_certificate_insert->filetype_id = 5;
-                $student_birth_certificate_insert->file = $student_birth_certificate;
-                $student_birth_certificate_insert->save();
+                $insert = new Files();
+                $insert->user_id = $user->id;
+                $insert->filetype_id = 5;
+                $insert->file =$avatar->store($path_birth_certificate , 'public');
+                $insert->save();
 
             }
-
-
-//            $friendship = Friend::where(['user1' => 1, 'user2' => $user->id])->orWhere(['user2' => 1, 'user1' => $user->id])->count();
-//            if ($friendship == 0) {
-//                Friend::create([
-//                    'user1' => 1,
-//                    'user2' => $user->id,
-//                ]);
-//                Friend::create([
-//                    'user2' => 1,
-//                    'user1' => $user->id,
-//                ]);
-//            }
 
             return redirect('home');
         }
@@ -186,11 +172,12 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        if($id) {
-            $user = User::findOrFail($id);
+        $this->middleware('role:superAdmin');
+
+        $user = User::findOrFail($id);
             $files = Files::where('user_id', $id)->paginate();
             return view('dashboard.student.show', compact('user', 'files'));
-        }
+
     }
 
     /**
@@ -224,18 +211,20 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        if($id) {
-            User::where('id', $id)->update(['activated' => -1]);
+        $this->middleware('role:superAdmin');
+
+        User::where('id', $id)->update(['activated' => -1]);
             return back()->with('status', 'Student Disabled Successfully !!');
-        }
+
     }
 
     public function enable($id)
     {
-        if($id) {
-            User::where('id', $id)->update(['activated' => 1]);
+        $this->middleware('role:superAdmin');
+
+        User::where('id', $id)->update(['activated' => 1]);
             return back()->with('status', 'Student Enabled Successfully !!');
-        }
+
     }
 
    public function getLevels($id){

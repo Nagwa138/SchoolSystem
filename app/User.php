@@ -55,4 +55,14 @@ class User extends Authenticatable
     }
 
 
+    public function request(){
+        return $this->hasMany('App\ModifyRequest' , 'modify_request_id' , 'id');
+    }
+
+
+    public function response(){
+        return $this->hasMany('App\ModifyResponse' , 'modify_response_id' , 'id');
+    }
+
+
 }
